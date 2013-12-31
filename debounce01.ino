@@ -5,17 +5,16 @@ Interupt no 1 is pin 3 on Uno
 */
 
 int pbIn = 0;                  // Interrupt 0 is on DIGITAL PIN 2!
-int ledOut = 13;               // The output LED pin
 volatile int state = LOW;      // The input state toggle
 int rain = 0;
+
 unsigned long microTimeCurrent = micros();
 unsigned long microTimeDelay = 100000;  // IE 0.1 Second
 unsigned long microTimeLast = 0;
 
 void setup()
 {                
-  // Set up the digital pin 2 to an Interrupt and Pin 4 to an Output
-  pinMode(ledOut, OUTPUT);
+  // Set up the digital pin 2 to an Interrupt
 
   //Attach the interrupt to the input pin and monitor for ANY Change 
   attachInterrupt(pbIn, stateChange, RISING);
@@ -46,7 +45,6 @@ void stateChange()
     microTimeLast = micros();
     state = !state;
     ++rain;
-    digitalWrite(ledOut, state);  
     Serial.println(rain);
   }
 }
